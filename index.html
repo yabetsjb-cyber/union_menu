@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union cocktail Bar and Restaurant - Menu</title> <!--Hotel Name Here-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #c5a059;
+            --bg-color: #fcfaf7;
+            --text-color: #333333;
+            --muted-text: #666666;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 30vh;
+            background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hotel-name {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+
+        /* Sticky Navigation */
+        .category-nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            padding: 1rem 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            white-space: nowrap;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--muted-text);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-btn.active {
+            color: var(--accent-color);
+        }
+
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        /* Menu Content */
+        .menu-container {
+            padding: 2rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 60vh;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            margin: 0.5rem auto 0;
+        }
+
+        .menu-items-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .menu-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-info {
+            flex: 1;
+            padding-right: 1.5rem;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--muted-text);
+            font-weight: 400;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer {
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .hotel-name {
+                font-size: 2rem;
+            }
+
+            .category-nav {
+                justify-content: flex-start;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+            }
+
+            .menu-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .item-name {
+                font-size: 1rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <h1 class="hotel-name"> Union cocktail Bar and Restaurant - Menu </h1> <!--This will be there brand-->
+            <p class="tagline">Union cocktail Bar Experience</p> <!--This will be there brand-->
+        </div>
+    </header>
+
+    <nav class="category-nav" id="category-nav">
+        <ul class="nav-links">
+            <li><button class="nav-btn active" data-category="breakfast">Breakfast</button></li>
+            <li><button class="nav-btn" data-category="lunch">Lunch</button></li>
+            <li><button class="nav-btn" data-category="dinner">Dinner</button></li>
+            <li><button class="nav-btn" data-category="drinks">Drinks</button></li>
+            <li><button class="nav-btn" data-category="desserts">Desserts</button></li>
+        </ul>
+    </nav>
+
+    <main class="menu-container">
+        <h2 id="category-title" class="category-title">Breakfast</h2>
+        <div id="menu-items" class="menu-items-grid">
+            <!-- Menu items will be injected here -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; Union cocktail Bar and Restaurant. All rights reserved.</p> <!--This is there brand-->
+        
+    </footer>
+
+    <script>
+        const menuData = {
+            breakfast: [
+                { name: "Avocado and Mango salsa Salad", description: "A fresh fruit mix served with lettuce drizzled with tangy lemon dressing.", price: "400 Birr" },
+                { name: "Tofu Salad", description: "Breaded and dip fried Tofu to golden brown served with crispy lettuce balsamic reduction and vierge dressing. ", price: "350 Birr" },
+                { name: "Plant based Tart", description: "A blend of root vegetables and pickled mushroom served with a mild spiced lettuce salad.", price: "500 Birr" },
+                { name: "Tuna Mediterranean Salad", description: "A flake of tuna and sweet corn served with charcoal grilled vegetable salad.", price: "450 Birr" },
+                { name: "Vegetable minestrone", description: " A rich local vegetable reduction with tender pasta, served with garlic bread", price: "600 Birr" }
+            ],
+            lunch: [
+                { name: "Udon Noodles", description: "Homemade Udon noodles blended with Japanese miso and teriyaki sauce. ", price: "550 Birr" },
+                { name: "Udon Noodles", description: "Homemade Udon noodles blended with Japanese miso and teriyaki sauce. ", price: "550 Birr" },
+                { name: "Udon Noodles", description: "Homemade Udon noodles blended with Japanese miso and teriyaki sauce. ", price: "550 Birr" },
+                { name: "Udon Noodles", description: "Homemade Udon noodles blended with Japanese miso and teriyaki sauce. ", price: "550 Birr" },
+               
+            ],
+            dinner: [
+                { name: "Shiro Combo", description: "A hearty and flavorful chickpea stew, served with a refreshing tomato salad, sinig qaria, and injera. ", price: "220 Birr" },
+                { name: "Shiro Combo", description: "A hearty and flavorful chickpea stew, served with a refreshing tomato salad, sinig qaria, and injera. ", price: "220 Birr" },
+                { name: "Shiro Combo", description: "A hearty and flavorful chickpea stew, served with a refreshing tomato salad, sinig qaria, and injera. ", price: "220 Birr" },
+                { name: "Shiro Combo", description: "A hearty and flavorful chickpea stew, served with a refreshing tomato salad, sinig qaria, and injera. ", price: "220 Birr" },
+               
+            ],
+            drinks: [
+                { name: "Signature Horizon Martini", description: "Premium gin, dry vermouth, citrus mist, blue cheese stuffed olives.", price: "150 Birr" },
+                { name: "Old Fashioned Reserve", description: "Small-batch bourbon, aromatic bitters, orange zest, Maraschine cherry.", price: "160 Birr" },
+                { name: "Sparkling Rose Lemonade", description: "Organic roses, fresh lemon, agave, sparkling water (Non-alcoholic).", price: "120 Birr" },
+                { name: "Artisanal Coffee Selection", description: "Single-origin beans, choice of Espresso, Latte, or Pour-over.", price: "80 Birr" }
+            ],
+            desserts: [
+                { name: "Fish Curry ", description: "rispy golden-brown tofu, served in a fragrant curry sauce with a side of steamed rice, chutney, and partha", price: "900 Birr" },
+                { name: "Fish Curry ", description: "rispy golden-brown tofu, served in a fragrant curry sauce with a side of steamed rice, chutney, and partha", price: "900 Birr" },
+                { name: "Fish Curry ", description: "rispy golden-brown tofu, served in a fragrant curry sauce with a side of steamed rice, chutney, and partha", price: "900 Birr" },
+        ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const menuItemsContainer = document.getElementById('menu-items');
+            const categoryTitle = document.getElementById('category-title');
+
+            function renderMenu(category) {
+                categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                menuItemsContainer.innerHTML = '';
+                const items = menuData[category];
+
+                items.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.innerHTML = `
+                        <div class="item-info">
+                            <h3 class="item-name">${item.name}</h3>
+                            <p class="item-description">${item.description}</p>
+                        </div>
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    menuItemsContainer.appendChild(itemElement);
+
+                    setTimeout(() => {
+                        itemElement.classList.add('visible');
+                    }, 50 * index);
+                });
+            }
+
+            renderMenu('breakfast');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const category = button.getAttribute('data-category');
+                    renderMenu(category);
+
+                    if (window.innerWidth < 768) {
+                        categoryTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
